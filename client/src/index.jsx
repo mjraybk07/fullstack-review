@@ -12,10 +12,18 @@ class App extends React.Component {
     }
 
   }
+  
+  componentDidMount () {
+    console.log('...componentDidMount...'); 
+    // TODO initial rendering of list ??
+    
+  }
 
   search (term) {
     console.log(`${term} was searched`);
     // TODO
+    $.ajax
+    
   }
 
   render () {
