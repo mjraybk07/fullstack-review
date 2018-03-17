@@ -22,7 +22,19 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
     // TODO
-    $.ajax
+    $.ajax({
+      url: 'http://localhost:1128/repos',
+      type: 'POST',
+      data: { username: term},
+      
+      success: (data) => {
+        console.log('POST request submitted [success]: ', data)
+      },
+      
+      error: (data) => {
+        console.log('POST request submitted [error]: ', data);
+      }
+    })
     
   }
 
