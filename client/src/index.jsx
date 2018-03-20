@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import RepoListEntry from './components/RepoListEntry.jsx';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +18,21 @@ class App extends React.Component {
   componentDidMount () {
     console.log('...componentDidMount...'); 
     // TODO initial rendering of list ??
+    $.ajax({
+      url: 'http://localhost:1128/repos',
+      type: 'GET',
+      data: {},
+      
+      success: (data) => {
+        this.setState({repos: JSON.parse(data)});
+        console.log('GET request submitted [success]')
+      },
+      
+      error: () => {
+        console.log('GET request submitted [error]');
+      }
+    })
+
     
   }
 
