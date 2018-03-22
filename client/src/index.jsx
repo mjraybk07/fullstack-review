@@ -15,9 +15,9 @@ class App extends React.Component {
     this.search = this.search.bind(this);
   }
   
-  componentDidMount () {
-    console.log('...componentDidMount...'); 
-    // TODO initial rendering of list ??
+  getRepos () {
+    console.log('getRepos.......');
+    
     $.ajax({
       url: '/repos',
       type: 'GET',
@@ -32,13 +32,19 @@ class App extends React.Component {
         console.log('GET request submitted [error]');
       }
     })
-
-    
+  }
+  
+  componentDidMount () {
+    console.log('componentDidMount...'); 
+    // TODO initial rendering of list ??
+    this.getRepos();  
   }
 
   search (term) {
     console.log(`${term} was searched`);
     // TODO
+    var context = this;
+    
     $.ajax({
       url: '/repos',
       type: 'POST',
@@ -46,12 +52,15 @@ class App extends React.Component {
       
       success: (data) => {
         console.log('POST request submitted [success]: ', data)
+        context.getRepos();
+        
       },
       
       error: (data) => {
         console.log('POST request submitted [error]: ', data);
       }
     })
+    
     
   }
 
