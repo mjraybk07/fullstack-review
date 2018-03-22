@@ -14,7 +14,7 @@ let repoSchema = mongoose.Schema({
   id: {type: Number, unique: true},
   name: String,
   ownerLogin: String,
-  ownerId: Number,
+  ownerId: {type: Number, unique: true},
   ownerUrl: String,
   createdAt: String,
   description: String,
