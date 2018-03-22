@@ -2,10 +2,10 @@ const request = require('request');
 //const request = require('request-promise');
 const config = require('../config.js');
 
-let getReposByUsername = (/* TODO */username, callback) => {
+let getReposByUsername = (username, callback) => {
   // TODO - Use the request module to request repos for a specific
   // user from the github API
-  var usernameUrl = `http://api.github.com/users/${username}/repos`;
+  var usernameUrl = `https://api.github.com/users/${username}/repos`;
   
   console.log('.........getReposByUsername usernameUrl: ', usernameUrl);
 
@@ -19,13 +19,16 @@ let getReposByUsername = (/* TODO */username, callback) => {
       'Authorization': `token ${config.TOKEN}`,
       'Accept': 'application/vnd.github.v3+json' // explicitly request this version via the Accept header
     }
+
   };
   //callback('getReposByUsername........')
   //user request module to send GET request to github
   request(options, function (error, response, body) {
-    // if (error) {
-    //   throw error;
-    // }
+    if (error) {
+      throw error;
+    }
+    console.log('.........getReposByUsername REQUEST: ');
+    
     callback(JSON.parse(body));
     
   });

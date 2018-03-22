@@ -12,19 +12,19 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
-
+    this.search = this.search.bind(this);
   }
   
   componentDidMount () {
     console.log('...componentDidMount...'); 
     // TODO initial rendering of list ??
     $.ajax({
-      url: 'http://localhost:1128/repos',
+      url: '/repos',
       type: 'GET',
       data: {},
       
       success: (data) => {
-        this.setState({repos: JSON.parse(data)});
+        this.setState({repos: data});
         console.log('GET request submitted [success]')
       },
       
@@ -40,7 +40,7 @@ class App extends React.Component {
     console.log(`${term} was searched`);
     // TODO
     $.ajax({
-      url: 'http://localhost:1128/repos',
+      url: '/repos',
       type: 'POST',
       data: { username: term},
       
@@ -59,7 +59,7 @@ class App extends React.Component {
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
+      <Search onSearch={this.search}/>
     </div>)
   }
 }
