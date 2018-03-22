@@ -31,9 +31,10 @@ app.post('/repos', function (req, res) {
   console.log('............/repos POST username: ', username);
   
   helpers.getReposByUsername(username, function (data) {
-    console.log('this is the data....... ', data);
+    // console.log('this is the data....... ', data);
+    
     // add repos data to database
-    db.save()
+    db.save(data);
     
     
     res.sendStatus(201); 
@@ -44,10 +45,16 @@ app.post('/repos', function (req, res) {
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
-  console.log(dummyData);
+  console.log('Getting top 25 repos....');
   
   // TEST - send dummy data to client
-  res.send(dummyData);
+  db.getTop25Repos( (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.send(results);
+  })
+  
 });
 
 let port = 1128;

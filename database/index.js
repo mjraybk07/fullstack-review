@@ -25,13 +25,13 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO data */) => {
+let save = (list) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
-  console.log('hi');
+  console.log('Saving to repos database....');
   
-  dummyData.forEach( (entry) => {
+  list.forEach( (entry) => {
     var formated = {
       id: entry.id,
       name: entry.name,
@@ -54,4 +54,16 @@ let save = (/* TODO data */) => {
   })
 }
 
+let getTop25Repos = (callback) => {
+  console.log('getting top 25 repos .......>................>........');
+  Repo.
+    find().
+    limit(25).
+    sort('-watchers').
+    select().
+    exec(callback);
+}
+
+
 module.exports.save = save;
+module.exports.getTop25Repos = getTop25Repos;
